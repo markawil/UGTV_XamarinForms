@@ -54,7 +54,9 @@ namespace UGTVForms.ViewModels
         public void SearchVideos(string text)
         {
             var results = from video in videos
-                          where video.VideoTitle.Contains(text)
+                          where video.VideoTitle
+                                     .ToLower()
+                                     .Contains(text.ToLower())
                           select video;
 
             CreateVideoPairs(results.ToList());
