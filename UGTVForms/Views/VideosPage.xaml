@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="UGTVForms.Views.VideosPage">
+    <NavigationPage.TitleView>
+        <StackLayout 
+            Orientation="Horizontal" 
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" 
+            Padding="5">
+           <Image Source="SplashScreen2.png" Aspect="AspectFill"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="06-magnify.png" Clicked="Handle_SearchClicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar 
+                x:Name="searchbar"
+                IsVisible="{Binding ShowSearchBar}"
+                SearchButtonPressed="Handle_SearchButtonPressed"/>
+            <ListView 
+                ItemsSource="{Binding VideoPairs}"
+                x:Name="listView" 
+                SeparatorVisibility="None"
+                RowHeight="140"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy}"                 
+                Refreshing="Handle_Refreshing" 
+                RefreshControlColor="White">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="70"/> 
+                                    <RowDefinition Height="60"/>                                    
+                                </Grid.RowDefinitions>                                
+                                <Image                                     
+                                    Grid.RowSpan="2"
+                                    BindingContext="{Binding Video1}" 
+                                    Aspect="AspectFill"
+                                    Source="{Binding ImageURLPath}"/>
+                                <StackLayout 
+                                    BackgroundColor="#B3000000"
+                                    BindingContext="{Binding Video1}"
+                                    Orientation="Vertical" 
+                                    Grid.Column="0"
+                                    Grid.Row="1"
+                                    Padding="5">
+                                    <Label
+                                        FontSize="Micro"                                        
+                                        Text="{Binding VideoDateTimeFormatted}"
+                                        TextColor="White"/>
+                                    <Label 
+                                        VerticalOptions="Center"      
+                                        FontSize="Small"                                               
+                                        LineBreakMode="WordWrap"
+                                        MaxLines="2"                     
+                                        Text="{Binding VideoTitle}"
+                                        TextColor="White"/>
+                                </StackLayout>
+                                <Button 
+                                    BackgroundColor="Transparent" 
+                                    Grid.Column="0"
+                                    Grid.RowSpan="2"
+                                    BindingContext="{Binding Video1}"
+                                    Clicked="Handle_VideoButtonClicked"/>
+                                
+                                <Image 
+                                    Grid.Column="1"                                    
+                                    Grid.RowSpan="2"
+                                    Aspect="AspectFill"
+                                    BindingContext="{Binding Video2}"
+                                    Source="{Binding ImageURLPath}"/>
+                                <StackLayout 
+                                    BackgroundColor="#B3000000"
+                                    BindingContext="{Binding Video2}"
+                                    Orientation="Vertical" 
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    Padding="5">
+                                    <Label       
+                                        FontSize="Micro"                                                                                                     
+                                        Text="{Binding VideoDateTimeFormatted}"
+                                        TextColor="White"/>
+                                    <Label 
+                                        VerticalOptions="Center"
+                                        FontSize="Small"
+                                        LineBreakMode="WordWrap"
+                                        MaxLines="2"                                                                             
+                                        Text="{Binding VideoTitle}"
+                                        TextColor="White"/>
+                                </StackLayout>
+                                <Button 
+                                    BackgroundColor="Transparent"                                    
+                                    Grid.Column="1"
+                                    Grid.RowSpan="2"
+                                    BindingContext="{Binding Video2}"
+                                    Clicked="Handle_VideoButtonClicked"/>
+                            </Grid>
+                        </ViewCell> 
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
