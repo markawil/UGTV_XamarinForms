@@ -54,8 +54,11 @@ namespace UGTVForms.Views
         async void Handle_VideoButtonClicked(object sender, System.EventArgs e)
         {
             var button = sender as Button;
-            var videoVM = button.BindingContext as VideoViewModel;            
-            await Navigation.PushModalAsync(new NavigationPage(new VideoDetailPage(videoVM)));
+            var videoVM = button.BindingContext as VideoViewModel;
+            if (videoVM != null)
+            {
+                await Navigation.PushModalAsync(new NavigationPage(new VideoDetailPage(videoVM)));
+            }
         }
 
         public VideoListViewModel ViewModel

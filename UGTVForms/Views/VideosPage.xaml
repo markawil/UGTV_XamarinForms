@@ -20,7 +20,9 @@
             <SearchBar 
                 x:Name="searchbar"
                 IsVisible="{Binding ShowSearchBar}"
-                SearchButtonPressed="Handle_SearchButtonPressed"/>
+                SearchButtonPressed="Handle_SearchButtonPressed"
+                IsSpellCheckEnabled="false"
+                />
             <ListView 
                 ItemsSource="{Binding VideoPairs}"
                 x:Name="listView" 
