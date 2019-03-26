@@ -23,8 +23,13 @@ namespace UGTVForms.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            
+            UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
+            UIApplication.SharedApplication.SetStatusBarHidden(false, false);
+            
             LoadApplication(new App());
 
+            
             return base.FinishedLaunching(app, options);
         }
     }
