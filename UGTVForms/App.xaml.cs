@@ -13,7 +13,7 @@ namespace UGTVForms
         {
             InitializeComponent();
 
-            var navPage = new NavigationPage(new VideosPage());
+            var navPage = new VideosPage();
             MainPage = navPage;
         }
 

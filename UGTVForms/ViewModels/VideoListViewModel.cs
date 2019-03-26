@@ -64,8 +64,11 @@ namespace UGTVForms.ViewModels
         
         public void SearchCanceled()
         {
-            videos.Reverse();
-            CreateVideoPairs(videos);
+            if (videos != null && videos.Count > 0)
+            {
+                videos.Reverse();
+                CreateVideoPairs(videos);
+            }
         }
 
         string titleText = "UserGroup.TV";

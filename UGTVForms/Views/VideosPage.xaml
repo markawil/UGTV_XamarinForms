@@ -2,28 +2,56 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="UGTVForms.Views.VideosPage">
-    <NavigationPage.TitleView>
-        <StackLayout 
-            Orientation="Horizontal" 
-            VerticalOptions="Center" 
-            HorizontalOptions="Start" 
-            Padding="5">
-           <Image Source="SplashScreen.png" Aspect="AspectFill"/>
-        </StackLayout>
-    </NavigationPage.TitleView>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="searchIcon.png" Clicked="Handle_SearchClicked" />
-    </ContentPage.ToolbarItems>
+    x:Class="UGTVForms.Views.VideosPage">    
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout BackgroundColor="Black">
+            <StackLayout 
+                BackgroundColor="Black"
+                Orientation="Horizontal">
+                <Image
+                    WidthRequest="150"
+                    HeightRequest="30"                    
+                    HorizontalOptions="Start" 
+                    Source="SplashScreen.png" 
+                    Aspect="AspectFit">
+                    <Image.Margin>
+                        <OnPlatform x:TypeArguments="Thickness"
+                            Android="10,0,30,0" 
+                            iOS="10,40,30,5"                            
+                        />
+                    </Image.Margin>
+                </Image>
+                <ImageButton 
+                    BackgroundColor="Black"                    
+                    Source="searchIcon.png" 
+                    Aspect="AspectFit"
+                    HorizontalOptions="EndAndExpand"
+                    WidthRequest="30"                                                            
+                    HeightRequest="30"
+                    Clicked="Handle_SearchClicked"
+                    >
+                    <ImageButton.Margin>
+                        <OnPlatform x:TypeArguments="Thickness"
+                            Android="10,5,5,5" 
+                            iOS="10,40,5,5"                            
+                        />
+                    </ImageButton.Margin>
+                </ImageButton>                
+            </StackLayout>
             <SearchBar 
                 x:Name="searchbar"
                 Margin="0"
                 IsVisible="{Binding ShowSearchBar}"
                 SearchButtonPressed="Handle_SearchButtonPressed"
                 IsSpellCheckEnabled="false"
-                />
+                >
+                <SearchBar.BackgroundColor>
+                    <OnPlatform x:TypeArguments="Color"
+                        Android="White"
+                        iOS="Black"
+                    />
+                </SearchBar.BackgroundColor>
+            </SearchBar>
             <ListView 
                 ItemsSource="{Binding VideoPairs}"
                 x:Name="listView" 

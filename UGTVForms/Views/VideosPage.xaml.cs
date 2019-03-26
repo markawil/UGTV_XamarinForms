@@ -12,8 +12,7 @@ namespace UGTVForms.Views
             ViewModel = new VideoListViewModel(new NetworkController());
 
             InitializeComponent();
-            listView.BackgroundColor = Color.LightSlateGray;
-            searchbar.BackgroundColor = Color.LightSlateGray;
+            listView.BackgroundColor = Color.LightSlateGray;            
         }
 
         protected override void OnAppearing()
@@ -57,7 +56,8 @@ namespace UGTVForms.Views
             var videoVM = button.BindingContext as VideoViewModel;
             if (videoVM != null)
             {
-                await Navigation.PushModalAsync(new NavigationPage(new VideoDetailPage(videoVM)));
+                NavigationPage videoPage = new NavigationPage(new VideoDetailPage(videoVM));                
+                await Navigation.PushModalAsync(videoPage);
             }
         }
 

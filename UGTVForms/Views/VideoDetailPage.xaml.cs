@@ -14,6 +14,7 @@ namespace UGTVForms.Views
             InitializeComponent();
             this.BackgroundColor = Color.LightSlateGray;
             this.viewModel = viewModel;
+            this.Title = viewModel.VideoTitle;
         }
 
         protected override void OnAppearing()
