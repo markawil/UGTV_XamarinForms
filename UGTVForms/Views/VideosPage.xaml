@@ -9,16 +9,17 @@
             VerticalOptions="Center" 
             HorizontalOptions="Start" 
             Padding="5">
-           <Image Source="SplashScreen2.png" Aspect="AspectFill"/>
+           <Image Source="SplashScreen.png" Aspect="AspectFill"/>
         </StackLayout>
     </NavigationPage.TitleView>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="06-magnify.png" Clicked="Handle_SearchClicked" />
+        <ToolbarItem Icon="searchIcon.png" Clicked="Handle_SearchClicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <SearchBar 
                 x:Name="searchbar"
+                Margin="0"
                 IsVisible="{Binding ShowSearchBar}"
                 SearchButtonPressed="Handle_SearchButtonPressed"
                 IsSpellCheckEnabled="false"

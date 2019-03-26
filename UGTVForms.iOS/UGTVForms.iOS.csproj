@@ -84,14 +84,13 @@
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
-    <BundleResource Include="Resources\06-magnify%402x.png" />
+    <BundleResource Include="Resources\searchIcon%402x.png" />
     <BundleResource Include="Resources\11-clock%402x.png" />
     <BundleResource Include="Resources\14-tag%402x.png" />
     <BundleResource Include="Resources\111-user%402x.png" />
     <BundleResource Include="Resources\Logo.png" />
-    <BundleResource Include="Resources\SplashScreen.png" />
-    <BundleResource Include="Resources\SplashScreen2.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
+    <BundleResource Include="Resources\SplashScreen.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
