@@ -4,9 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="UGTVForms.Views.VideosPage">    
     <ContentPage.Content>
-        <StackLayout BackgroundColor="Black">
-            <StackLayout 
-                BackgroundColor="Black"
+        <StackLayout BackgroundColor="White">
+            <StackLayout
                 Orientation="Horizontal">
                 <Image
                     WidthRequest="150"
@@ -17,15 +16,14 @@
                     <Image.Margin>
                         <OnPlatform x:TypeArguments="Thickness"
                             Android="10,0,30,0" 
-                            iOS="10,40,30,5"                            
+                            iOS="10,40,40,10"                            
                         />
                     </Image.Margin>
                 </Image>
-                <ImageButton 
-                    BackgroundColor="Black"                    
-                    Source="searchIcon.png" 
+                <ImageButton           
+                    Source="search.png" 
                     Aspect="AspectFit"
-                    HorizontalOptions="EndAndExpand"
+                    HorizontalOptions="End"
                     WidthRequest="30"                                                            
                     HeightRequest="30"
                     Clicked="Handle_SearchClicked"
@@ -45,19 +43,13 @@
                 SearchButtonPressed="Handle_SearchButtonPressed"
                 IsSpellCheckEnabled="false"
                 >
-                <SearchBar.BackgroundColor>
-                    <OnPlatform x:TypeArguments="Color"
-                        Android="White"
-                        iOS="Black"
-                    />
-                </SearchBar.BackgroundColor>
             </SearchBar>
             <ListView 
                 ItemsSource="{Binding VideoPairs}"
                 x:Name="listView" 
                 SeparatorVisibility="None"
                 RowHeight="140"
-                IsPullToRefreshEnabled="true"
+                IsPullToRefreshEnabled="{Binding IsRefreshEnabled}"
                 IsRefreshing="{Binding IsBusy}"                 
                 Refreshing="Handle_Refreshing" 
                 >
@@ -115,10 +107,11 @@
                                     Padding="5">
                                     <Label       
                                         FontSize="Micro"                                                                                                     
-                                        Text="{Binding VideoDateTimeFormatted}"
+                                        Text="{Binding VideoDateTimeFormatted}"                                        
                                         TextColor="White"/>
                                     <Label 
                                         VerticalOptions="Center"
+                                        FontFamily="Helvetica"
                                         FontSize="Small"
                                         LineBreakMode="WordWrap"
                                         MaxLines="2"                                                                             

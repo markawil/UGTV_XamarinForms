@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="X5k-f2-b5h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="X5k-f2-b5h">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,17 +16,17 @@
                     <view key="view" contentMode="scaleToFill" id="yd7-JS-zBw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" customColorSpace="sRGB" cocoaTouchSystemColor="darkTextColor"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="243" translatesAutoresizingMaskIntoConstraints="NO" image="SplashScreen.png">
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashScreen.png" translatesAutoresizingMaskIntoConstraints="NO" id="243">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                         </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
-                            <constraint id="245" firstItem="243" firstAttribute="centerX" secondItem="yd7-JS-zBw" secondAttribute="centerX"/>
-                            <constraint id="246" firstItem="243" firstAttribute="centerY" secondItem="yd7-JS-zBw" secondAttribute="centerY"/>
-                            <constraint id="249" firstItem="243" firstAttribute="width" secondItem="yd7-JS-zBw" secondAttribute="width"/>
-                            <constraint id="251" firstItem="243" firstAttribute="height" secondItem="yd7-JS-zBw" secondAttribute="height"/>
+                            <constraint firstItem="243" firstAttribute="centerX" secondItem="yd7-JS-zBw" secondAttribute="centerX" id="245"/>
+                            <constraint firstItem="243" firstAttribute="centerY" secondItem="yd7-JS-zBw" secondAttribute="centerY" id="246"/>
+                            <constraint firstItem="243" firstAttribute="width" secondItem="yd7-JS-zBw" secondAttribute="width" id="249"/>
+                            <constraint firstItem="243" firstAttribute="height" secondItem="yd7-JS-zBw" secondAttribute="height" id="251"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -36,6 +36,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="SplashScreen.png" width="620" height="300"/>
+        <image name="SplashScreen.png" width="246" height="67"/>
     </resources>
 </document>

@@ -2,18 +2,28 @@
 using UGTVForms.Services;
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using UGTVForms.Models;
 
 namespace UGTVForms.Views
 {
+    public enum VideosPageType
+    {
+        LatestVideos,
+        Favorites,
+        Downloaded
+    }
+    
     public partial class VideosPage : ContentPage
     {
-        public VideosPage()
+        public VideosPage(VideosPageType pageType, VideosBaseViewModel vm)
         {
-            ViewModel = new VideoListViewModel(new NetworkController());
+            PageType = pageType;
+            ViewModel = vm;        
 
             InitializeComponent();
-            listView.BackgroundColor = Color.LightSlateGray;            
         }
+
+        public VideosPageType PageType { get; set; }
 
         protected override void OnAppearing()
         {
@@ -27,7 +37,20 @@ namespace UGTVForms.Views
         
         private void Load()
         {
-            Task.Run(async () => await ViewModel.LoadVideos());
+            switch (PageType)
+            {
+                case VideosPageType.LatestVideos:
+                    ViewModel = new LatestVideosViewModel(new NetworkController());
+                    var vm = ViewModel as LatestVideosViewModel;
+                    Task.Run(async () => await vm.LoadVideos());
+                    break;
+                case VideosPageType.Favorites:
+                    ViewModel = new FavoritesViewModel();
+                    
+                    break;
+                case VideosPageType.Downloaded:
+                    break;
+            }
         }
 
         void Handle_SearchClicked(object sender, System.EventArgs e)
@@ -53,7 +76,7 @@ namespace UGTVForms.Views
         async void Handle_VideoButtonClicked(object sender, System.EventArgs e)
         {
             var button = sender as Button;
-            var videoVM = button.BindingContext as VideoViewModel;
+            var videoVM = button.BindingContext as VideoModel;
             if (videoVM != null)
             {
                 NavigationPage videoPage = new NavigationPage(new VideoDetailPage(videoVM));                
@@ -61,9 +84,9 @@ namespace UGTVForms.Views
             }
         }
 
-        public VideoListViewModel ViewModel
+        public VideosBaseViewModel ViewModel
         {
-            get { return BindingContext as VideoListViewModel; }
+            get { return BindingContext as VideosBaseViewModel; }
             set { BindingContext = value; }
         }
     }

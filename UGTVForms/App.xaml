@@ -3,12 +3,11 @@
     <Application.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
-            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <!--<Color x:Key="NavigationPrimary">#2196F3</Color>
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="Black" />
-                <Setter Property="BarTextColor" Value="White" />
-               
-            </Style>
+                <Setter Property="BarTextColor" Value="White" />               
+            </Style>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

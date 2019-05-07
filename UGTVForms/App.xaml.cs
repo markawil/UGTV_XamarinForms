@@ -13,8 +13,8 @@ namespace UGTVForms
         {
             InitializeComponent();
 
-            var navPage = new VideosPage();
-            MainPage = navPage;
+            var tabbedPage = new MainTabbedPage();
+            MainPage = tabbedPage;
         }
 
         protected override void OnStart()

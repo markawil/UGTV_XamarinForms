@@ -2,18 +2,19 @@
 using System.Json;
 using UGTVForms.Services;
 
-namespace UGTVForms.ViewModels
+namespace UGTVForms.Models
 {
-    public class VideoViewModel : BaseViewModel
+    public class VideoModel
     {
-        public VideoViewModel(JsonValue jsonValue)
+        public VideoModel(JsonValue jsonValue)
         {
             _jsonValue = jsonValue;
         }
 
         private JsonValue _jsonValue;
-        public JsonValue JsonValue {
-            get { return _jsonValue; }         
+        public JsonValue JsonValue 
+        {
+            get { return _jsonValue; }
         }
 
         public string VideoTitle
