@@ -13,15 +13,19 @@ namespace UGTVForms.ViewModels
         public FavoritesViewModel()
         {
             IsRefreshEnabled = false;
+            videoPairs = new ObservableCollection<VideoPairModel>();
         }
         
-        public override async Task LoadVideos()
+        public override void LoadVideos()
         {
             var result = Preferences.Get("favoritesJSON", string.Empty);
-            var videosJSON = JsonValue.Parse(result);
-            videos = videosJSON.VideosFromJSONValue();
-            var pairs = videos.CreateVideoPairs();   
-            VideoPairs = new ObservableCollection<VideoPairModel>(pairs);
+            if (!string.IsNullOrEmpty(result))
+            {
+                var videosJSON = JsonValue.Parse(result);
+                videos = videosJSON.VideosFromJSONValue();
+                var pairs = videos.CreateVideoPairs();   
+                VideoPairs = new ObservableCollection<VideoPairModel>(pairs);
+            }
         }        
     }
 }

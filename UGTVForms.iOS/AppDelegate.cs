@@ -27,6 +27,7 @@ namespace UGTVForms.iOS
             UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
             UIApplication.SharedApplication.SetStatusBarHidden(false, false);
             
+            Rox.VideoIos.Init();
             LoadApplication(new App());
 
             

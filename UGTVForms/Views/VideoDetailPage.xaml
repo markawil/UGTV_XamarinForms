@@ -2,19 +2,31 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:roxv="clr-namespace:Rox;assembly=Rox.Xamarin.Video.Portable"
     x:Class="UGTVForms.Views.VideoDetailPage"
     >
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Close" Clicked="Close_Clicked">
-            <ToolbarItem.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="UWP" Value="add.png" />
-                </OnPlatform>
-            </ToolbarItem.Icon>
-        </ToolbarItem>
+        <ToolbarItem Icon="star_black" Command="{Binding FavoriteCommand}"/>
+        <ToolbarItem Icon="download" Command="{Binding DownloadCommand}"/>
+        <ToolbarItem Text="Close" Clicked="Close_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <WebView x:Name="webview">
-        </WebView>
+        <StackLayout>
+            <Label 
+                Margin="10"
+                BackgroundColor="White" 
+                TextColor="Black" 
+                Text="{Binding VideoTitle}"
+                HorizontalOptions="CenterAndExpand"
+                HorizontalTextAlignment="Center" 
+                FontSize="Medium"/>
+            <Grid VerticalOptions="FillAndExpand">
+                <roxv:VideoView 
+                    AutoPlay="True" 
+                    LoopPlay="False" 
+                    ShowController="True" 
+                    Source="{Binding VideoURLPath}" />
+            </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

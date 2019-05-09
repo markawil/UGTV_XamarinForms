@@ -39,8 +39,7 @@ namespace UGTVForms.Views
             
             Children.Add(videosPage);
             Children.Add(favoritesPage);
-            Children.Add(downloadsPage);
-            
+            Children.Add(downloadsPage);            
         }
     }
 }

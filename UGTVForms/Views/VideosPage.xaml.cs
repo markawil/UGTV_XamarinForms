@@ -28,7 +28,9 @@ namespace UGTVForms.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
+            
+            // if no videos were previously loaded for this page, load them.
+            // this prevents loading the videos again every time the page appears.
             if (ViewModel.VideoPairs.Count == 0)
             {
                 Load();
@@ -40,17 +42,17 @@ namespace UGTVForms.Views
             switch (PageType)
             {
                 case VideosPageType.LatestVideos:
-                    ViewModel = new LatestVideosViewModel(new NetworkController());
-                    var vm = ViewModel as LatestVideosViewModel;
-                    Task.Run(async () => await vm.LoadVideos());
+                    ViewModel = new LatestVideosViewModel(new NetworkController());                                                            
                     break;
                 case VideosPageType.Favorites:
-                    ViewModel = new FavoritesViewModel();
-                    
+                    ViewModel = new FavoritesViewModel();                    
                     break;
                 case VideosPageType.Downloaded:
+                    ViewModel = new DownloadsViewModel();
                     break;
             }
+            
+            Task.Run(async () => await ViewModel.LoadVideosAsync());
         }
 
         void Handle_SearchClicked(object sender, System.EventArgs e)

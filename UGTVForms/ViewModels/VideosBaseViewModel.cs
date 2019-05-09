@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Xamarin.Forms;
+﻿using System.Collections.Generic;
 using UGTVForms.Models;
 using UGTVForms.Services;
 using System.Collections.ObjectModel;
@@ -11,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UGTVForms.ViewModels
 {
-    public class VideosBaseViewModel : INotifyPropertyChanged
+    public abstract class VideosBaseViewModel : BaseViewModel
     {
         public void SearchVideos(string text)
         {
@@ -23,8 +19,7 @@ namespace UGTVForms.ViewModels
 
             var pairs = results.ToList().CreateVideoPairs();
             VideoPairs = new ObservableCollection<VideoPairModel>(pairs);
-        }       
-        
+        }        
         
         public void SearchCanceled()
         {
@@ -36,8 +31,14 @@ namespace UGTVForms.ViewModels
             }
         }
         
+        // should be overridden.
+        public virtual void LoadVideos()
+        {
+            VideoPairs = new ObservableCollection<VideoPairModel>();
+        }
+        
         // Should be overridden.
-        public virtual async Task LoadVideos()
+        public virtual async Task LoadVideosAsync()
         {
             await Task.Run(() => VideoPairs = new ObservableCollection<VideoPairModel>());
         }
@@ -74,52 +75,6 @@ namespace UGTVForms.ViewModels
         }
 
         public bool IsRefreshEnabled { get; set; }
-        bool isBusy = false;
-        public bool IsBusy
-        {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
-        }
-
-        string title = string.Empty;
-        public string Title
-        {
-            get { return title; }
-            set { SetProperty(ref title, value); }
-        }
-
-        protected bool SetProperty<T>(ref T backingStore, T value,
-            [CallerMemberName]string propertyName = "",
-            Action onChanged = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value))
-                return false;
-
-            backingStore = value;
-            onChanged?.Invoke();
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            var changed = PropertyChanged;
-            if (changed == null)
-                return;
-
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public async Task LoadVideos()
-        {
-            IsBusy = true;
-            videos = await _networkController.FetchVideosAsync();
-            var pairs = videos.CreateVideoPairs();
-            VideoPairs = new ObservableCollection<VideoPairModel>(pairs);
-            IsBusy = false;
-        }       
-        #endregion
     }
+    
 }

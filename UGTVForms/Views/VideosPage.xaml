@@ -10,7 +10,7 @@
                 <Image
                     WidthRequest="150"
                     HeightRequest="30"                    
-                    HorizontalOptions="Start" 
+                    HorizontalOptions="StartAndExpand" 
                     Source="SplashScreen.png" 
                     Aspect="AspectFit">
                     <Image.Margin>
@@ -20,10 +20,10 @@
                         />
                     </Image.Margin>
                 </Image>
-                <ImageButton           
+                <ImageButton
                     Source="search.png" 
                     Aspect="AspectFit"
-                    HorizontalOptions="End"
+                    HorizontalOptions="EndAndExpand"
                     WidthRequest="30"                                                            
                     HeightRequest="30"
                     Clicked="Handle_SearchClicked"
@@ -31,7 +31,7 @@
                     <ImageButton.Margin>
                         <OnPlatform x:TypeArguments="Thickness"
                             Android="10,5,5,5" 
-                            iOS="10,40,5,5"                            
+                            iOS="10,40,15,5"                            
                         />
                     </ImageButton.Margin>
                 </ImageButton>                
@@ -101,7 +101,6 @@
                                 <StackLayout 
                                     BackgroundColor="#B3000000"
                                     BindingContext="{Binding Video2}"
-                                    Orientation="Vertical" 
                                     Grid.Column="1"
                                     Grid.Row="1"
                                     Padding="5">

@@ -16,7 +16,7 @@ namespace UGTVForms.ViewModels
             videoPairs = new ObservableCollection<VideoPairModel>();            
         }
 
-        public override async Task LoadVideos()
+        public override async Task LoadVideosAsync()
         {
             IsBusy = true;
             videos = await _networkController.FetchVideosAsync();
