@@ -1,18 +1,54 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Json;
 using UGTVForms.Services;
 
-namespace UGTVForms.Models
+namespace UGTVForms.ViewModels
 {
-    public class VideoModel
+    public class VideoModel : BaseViewModel
     {
+        public override bool Equals(object obj)
+        {
+            return Id == ((VideoModel)obj).Id;
+        }
+
+        public string Id
+        {
+            get { return _jsonValue["Id"].ToString(); }
+        }
+        
+        
         public VideoModel(JsonValue jsonValue)
         {
             _jsonValue = jsonValue;
         }
 
-        private JsonValue _jsonValue;
-        public JsonValue JsonValue 
+        private bool favorited;
+        public bool Favorited
+        { 
+            get => favorited;
+            set
+            {
+                favorited = value;
+                OnPropertyChanged(nameof(Favorited));
+            }
+        }
+
+        private bool downloaded;
+        public bool Downloaded
+        {
+            get => downloaded;
+            set
+            {
+                downloaded = value;
+                OnPropertyChanged(nameof(Downloaded));
+            }
+        }  
+        
+        public string DownloadedFilePath { get; set; }   
+
+        private readonly JsonValue _jsonValue;
+        public JsonValue JsonValue
         {
             get { return _jsonValue; }
         }
@@ -57,11 +93,11 @@ namespace UGTVForms.Models
             }
         }
 
-        public string VideoDateTimeFormatted 
+        public string VideoDateTimeFormatted
         {
-	        get 
+            get
             {
-                return VideoDateTime.UGTVDateTimeFormatted();     
+                return VideoDateTime.UGTVDateTimeFormatted();
             }
         }
 
@@ -83,6 +119,11 @@ namespace UGTVForms.Models
         public string ImageURLPath
         {
             get { return _jsonValue["Thumbnail"]; }
+        }
+
+        public override int GetHashCode()
+        {
+            return 2108858624 + EqualityComparer<string>.Default.GetHashCode(Id);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Json;
 using System.Linq;
 using UGTVForms.Models;
+using UGTVForms.ViewModels;
 
 namespace UGTVForms.Services
 {
@@ -37,13 +38,13 @@ namespace UGTVForms.Services
             }                
             
             return originalVideoPairs;
-        }
+        }   
         
-        public static List<VideoModel> VideosFromJSONValue(this JsonValue jsonValue)
+        public static List<VideoModel> VideosFromJson(this JsonValue jsonValue)
         {
-            var videosArray = jsonValue as JsonArray;                
+            var videosArray = jsonValue as JsonArray;
             var videos = new List<VideoModel>();
-            
+
             foreach (var videoInfo in videosArray)
             {
                 var video = new VideoModel(videoInfo);
@@ -51,6 +52,6 @@ namespace UGTVForms.Services
             }
 
             return videos;
-        }
+        }             
     }
 }

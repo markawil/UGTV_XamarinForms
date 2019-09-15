@@ -6,12 +6,10 @@
     x:Class="UGTVForms.Views.VideoDetailPage"
     >
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="star_black" Command="{Binding FavoriteCommand}"/>
-        <ToolbarItem Icon="download" Command="{Binding DownloadCommand}"/>
         <ToolbarItem Text="Close" Clicked="Close_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout>            
             <Label 
                 Margin="10"
                 BackgroundColor="White" 
@@ -20,11 +18,36 @@
                 HorizontalOptions="CenterAndExpand"
                 HorizontalTextAlignment="Center" 
                 FontSize="Medium"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button 
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    Text="{Binding FavoriteButtonText}" 
+                    Command="{Binding FavoriteCommand}" />
+                <StackLayout Orientation="Vertical" Grid.Column="1">
+                    <Button
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        Text="{Binding DownloadButtonText}"                        
+                        Command="{Binding DownloadCommand}" />
+                    <ProgressBar
+                        Margin="4"
+                        VerticalOptions="EndAndExpand"
+                        IsVisible="{Binding IsDownloading}"
+                        Progress="{Binding Progress}"/>
+                </StackLayout>
+            </Grid>
             <Grid VerticalOptions="FillAndExpand">
-                <roxv:VideoView 
-                    AutoPlay="True" 
-                    LoopPlay="False" 
-                    ShowController="True" 
+                <roxv:VideoView
+                    x:Name="videoPlayer"
+                    AutoPlay="False"                    
+                    FullScreen="false"
+                    LoopPlay="False"
+                    ShowController="True"
                     Source="{Binding VideoURLPath}" />
             </Grid>
         </StackLayout>

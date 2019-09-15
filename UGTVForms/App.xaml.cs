@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using UGTVForms.Views;
+using UGTVForms.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace UGTVForms
@@ -13,7 +14,7 @@ namespace UGTVForms
         {
             InitializeComponent();
 
-            var tabbedPage = new MainTabbedPage();
+            var tabbedPage = new MainTabbedPage();            
             MainPage = tabbedPage;
         }
 

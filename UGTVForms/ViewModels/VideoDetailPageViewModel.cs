@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Json;
 using System.Windows.Input;
 using UGTVForms.Models;
 using UGTVForms.Services;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace UGTVForms.ViewModels
@@ -11,44 +9,159 @@ namespace UGTVForms.ViewModels
     public class VideoDetailPageViewModel : BaseViewModel
     {
         private readonly VideoModel video;
+        private readonly IVideoDataStore favoritesDataStore;
+        private readonly IVideoDataStore downloadsDataStore;
+        private readonly IDownloadFileController downloadFileController;
 
         public ICommand FavoriteCommand { get; set; }
         public ICommand DownloadCommand { get; set; }
 
-        public string VideoImg { get => video.ImageURLPath; }        
-        public string VideoURLPath { get => video.VideoUrlPathLow; }
-        
-        public VideoDetailPageViewModel(VideoModel video)
+        // props to the user on SO for showing how to disable toolbar items in Xam.forms:
+        // https://stackoverflow.com/questions/27803038/disable-toolbaritem-xamarin-forms
+
+        public string VideoImg { get => video.ImageURLPath; }
+        public string VideoURLPath
+        {
+            get
+            {
+                if (video.Downloaded == false)
+                {
+                    return video.VideoUrlPathLow;
+                }
+                else
+                {
+                    return video.DownloadedFilePath;
+                }
+            }
+        }
+
+        public event EventHandler<string> DownloadFailureMessage;
+
+        public
+            VideoDetailPageViewModel(VideoModel video,
+                                        IVideoDataStore favoritesDataStore,
+                                        IVideoDataStore downloadsDataStore,
+                                        IDownloadFileController downloadFileController)
         {
             FavoriteCommand = new Command(FavoriteVideo);
             DownloadCommand = new Command(DownloadVideo);
-            
+
             this.video = video;
+            this.favoritesDataStore = favoritesDataStore;
+            this.downloadsDataStore = downloadsDataStore;
+            this.downloadFileController = downloadFileController;
+            this.downloadFileController.DownloadFailureMessage += DownloadFileController_DownloadFailureMessage;
+            this.downloadFileController.DownloadFileCompletedWithPath += DownloadFileController_DownloadFileCompletedWithPath;
+            this.downloadFileController.DownloadProgressChanged += DownloadFileController_DownloadProgressChanged;
+            
+            if (video.Favorited)
+            {
+                FavoriteButtonText = "Unfavorite";                
+            }
+
+            if (video.Downloaded)
+            {
+                DownloadButtonText = "Remove Download";
+            }
         }
-        
+
+        void DownloadFileController_DownloadProgressChanged(object sender, int e)
+        {
+            Progress = e / 10;
+        }
+
+        void DownloadFileController_DownloadFileCompletedWithPath(object sender, string e)
+        {
+            DownloadButtonText = "Remove Download";
+            video.DownloadedFilePath = e;
+            video.Downloaded = true;
+            downloadsDataStore.AddItem(video);
+            IsDownloading = false;
+        }
+
+        void DownloadFileController_DownloadFailureMessage(object sender, string e)
+        {
+            DownloadFailureMessage?.Invoke(this, e);
+            IsDownloading = false;
+        }
+
         public string VideoTitle { get => video.VideoTitle; }
 
-        private void DownloadVideo()
+        private void DownloadVideo(object obj)
         {
-            
-        }     
-
-        public void FavoriteVideo()
-        {
-            var result = Preferences.Get(Settings.Favorites_Key, string.Empty);
-            if (!string.IsNullOrEmpty(result))
+            if (video.Downloaded)
             {
-                var jsonValue = JsonValue.Parse(result);
-                var videosArray = jsonValue as JsonArray;
-                videosArray.Add(video.JsonValue);
-                Preferences.Set(Settings.Favorites_Key, videosArray.ToString());                
+                video.Downloaded = false;
+                downloadsDataStore.DeleteItem(video.Id);
+                DownloadButtonText = "Download"; 
             }
             else
             {
-                var jsonValues = new JsonValue[] { video.JsonValue };
-                var jsonArray = new JsonArray(jsonValues);
-                Preferences.Set(Settings.Favorites_Key, jsonArray.ToString());
+                Progress = 0;
+                IsDownloading = true;
+                downloadFileController.DownloadVideo(VideoURLPath);
+                DownloadButtonText = "Downloading...";
             }
         }
+
+        public void FavoriteVideo(object obj)
+        {
+            if (video.Favorited)
+            {
+                video.Favorited = false;
+                favoritesDataStore.DeleteItem(video.Id);
+                FavoriteButtonText = "Favorite";
+            }
+            else
+            {
+                video.Favorited = true;
+                favoritesDataStore.AddItem(video);
+                FavoriteButtonText = "Unfavorite";
+            }
+        }
+
+        private string favoriteButtonText = "Favorite";
+        public string FavoriteButtonText
+        {
+            get => favoriteButtonText;
+            set
+            {
+                favoriteButtonText = value;
+                OnPropertyChanged(nameof(FavoriteButtonText));
+            }
+        }
+
+        private string downloadButtonText = "Download";
+        public string DownloadButtonText
+        {
+            get => downloadButtonText;
+            set
+            {
+                downloadButtonText = value;
+                OnPropertyChanged(nameof(DownloadButtonText));
+            }
+        }
+
+        private bool isDownloading;
+        public bool IsDownloading
+        {
+            get => isDownloading;
+            set
+            {
+                isDownloading = value;
+                OnPropertyChanged(nameof(IsDownloading));
+            }
+        }
+
+        private double progress;
+        public double Progress
+        {
+            get => progress;
+            set
+            {
+                progress = value;
+                OnPropertyChanged(nameof(Progress)); 
+            }
+        }        
     }
 }

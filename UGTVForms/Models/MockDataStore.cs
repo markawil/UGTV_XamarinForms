@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UGTVForms.Models;
 
-namespace UGTVForms.Services
+namespace UGTVForms.Models
 {
     public class MockDataStore : IDataStore<Item>
     {
@@ -61,6 +61,36 @@ namespace UGTVForms.Services
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(items);
+        }
+
+        public bool AddItem(Item item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateItem(Item item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteItem(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Item GetItem(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Item> GetItems(bool forceRefresh = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Item> All()
+        {
+            throw new NotImplementedException();
         }
     }
 }

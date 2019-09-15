@@ -24,9 +24,6 @@ namespace UGTVForms.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             
-            UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
-            UIApplication.SharedApplication.SetStatusBarHidden(false, false);
-            
             Rox.VideoIos.Init();
             LoadApplication(new App());
 

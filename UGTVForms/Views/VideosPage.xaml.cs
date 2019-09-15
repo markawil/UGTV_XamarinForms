@@ -3,6 +3,7 @@ using UGTVForms.Services;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using UGTVForms.Models;
+using Xamarin.Essentials;
 
 namespace UGTVForms.Views
 {
@@ -15,11 +16,18 @@ namespace UGTVForms.Views
     
     public partial class VideosPage : ContentPage
     {
-        public VideosPage(VideosPageType pageType, VideosBaseViewModel vm)
+        private readonly IVideoDataStore favoritesDataStore;
+        private readonly IVideoDataStore downloadsDataStore;
+
+        public VideosPage(VideosPageType pageType,
+                          VideosBaseViewModel vm,
+                          IVideoDataStore favoritesDataStore,
+                          IVideoDataStore downloadsDataStore)
         {
             PageType = pageType;
-            ViewModel = vm;        
-
+            ViewModel = vm;
+            this.favoritesDataStore = favoritesDataStore;
+            this.downloadsDataStore = downloadsDataStore;
             InitializeComponent();
         }
 
@@ -29,9 +37,17 @@ namespace UGTVForms.Views
         {
             base.OnAppearing();
             
-            // if no videos were previously loaded for this page, load them.
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                DisplayAlert("No Connection Available", "", "OK");
+                return;
+            }
+            
+            // if no videos were previously loaded for this page, load them, 
+            // or if this is the favorites or downloads page (whos collections can be changed
+            // frequently) then reload them every time the page appears.
             // this prevents loading the videos again every time the page appears.
-            if (ViewModel.VideoPairs.Count == 0)
+            if (ViewModel.VideoPairs.Count == 0 || PageType != VideosPageType.LatestVideos)
             {
                 Load();
             }
@@ -41,18 +57,14 @@ namespace UGTVForms.Views
         {
             switch (PageType)
             {
-                case VideosPageType.LatestVideos:
-                    ViewModel = new LatestVideosViewModel(new NetworkController());                                                            
+                case VideosPageType.LatestVideos:                    
+                    Task.Run(async () => await ViewModel.LoadVideosAsync());
                     break;
-                case VideosPageType.Favorites:
-                    ViewModel = new FavoritesViewModel();                    
-                    break;
-                case VideosPageType.Downloaded:
-                    ViewModel = new DownloadsViewModel();
+                default:
+                    ViewModel.LoadVideos();
                     break;
             }
             
-            Task.Run(async () => await ViewModel.LoadVideosAsync());
         }
 
         void Handle_SearchClicked(object sender, System.EventArgs e)
@@ -81,7 +93,7 @@ namespace UGTVForms.Views
             var videoVM = button.BindingContext as VideoModel;
             if (videoVM != null)
             {
-                NavigationPage videoPage = new NavigationPage(new VideoDetailPage(videoVM));                
+                NavigationPage videoPage = new NavigationPage(new VideoDetailPage(videoVM, favoritesDataStore, downloadsDataStore));                
                 await Navigation.PushModalAsync(videoPage);
             }
         }

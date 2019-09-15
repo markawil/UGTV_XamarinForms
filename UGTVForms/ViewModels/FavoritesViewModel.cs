@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Json;
+using System.Linq;
 using System.Threading.Tasks;
 using UGTVForms.Models;
 using UGTVForms.Services;
@@ -8,24 +9,22 @@ using Xamarin.Essentials;
 
 namespace UGTVForms.ViewModels
 {
-    public class FavoritesViewModel : VideosBaseViewModel 
+    public class FavoritesViewModel : VideosBaseViewModel
     {
-        public FavoritesViewModel()
+        private readonly IVideoDataStore favoritesDataStore;
+
+        public FavoritesViewModel(IVideoDataStore favoritesDataStore)
         {
             IsRefreshEnabled = false;
             videoPairs = new ObservableCollection<VideoPairModel>();
+            this.favoritesDataStore = favoritesDataStore;
         }
-        
+
         public override void LoadVideos()
         {
-            var result = Preferences.Get("favoritesJSON", string.Empty);
-            if (!string.IsNullOrEmpty(result))
-            {
-                var videosJSON = JsonValue.Parse(result);
-                videos = videosJSON.VideosFromJSONValue();
-                var pairs = videos.CreateVideoPairs();   
-                VideoPairs = new ObservableCollection<VideoPairModel>(pairs);
-            }
-        }        
+            videos = favoritesDataStore.All().ToList();
+            var pairs = videos.CreateVideoPairs();
+            VideoPairs = new ObservableCollection<VideoPairModel>(pairs);
+        }
     }
 }

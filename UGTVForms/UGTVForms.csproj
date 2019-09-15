@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.6.0.264807" />  
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />  
     <PackageReference Include="System.Json" Version="4.5.0" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
     <PackageReference Include="Rox.Xamarin.Video" Version="2.1.0" />
