@@ -46,7 +46,8 @@ namespace UGTVForms.Views
             // if no videos were previously loaded for this page, load them, 
             // or if this is the favorites or downloads page (whos collections can be changed
             // frequently) then reload them every time the page appears.
-            // this prevents loading the videos again every time the page appears.
+            // But prevent loading the videos again every time the page appears
+            // if it's the latest videos page which won't change (unless they refresh)
             if (ViewModel.VideoPairs.Count == 0 || PageType != VideosPageType.LatestVideos)
             {
                 Load();

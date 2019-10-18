@@ -18,15 +18,16 @@ namespace UGTVForms.Models
 
         public bool AddItem(VideoModel video)
         {
+            // All Downloads are considered favorited as well
             video.Favorited = true;
-            var favoritedVideos = All();
+            var allVideos = All();
 
-            if (favoritedVideos.Contains(video))
-            {
+            if (allVideos.Contains(video))
+            {   // video already saved
                 return false;
             }
 
-            if (!favoritedVideos.Any()) // no videos have been saved yet
+            if (!allVideos.Any()) // no videos have been saved yet
             {
                 var jsonValues = new JsonValue[] { video.JsonValue };
                 var jsonArray = new JsonArray(jsonValues);
@@ -34,6 +35,7 @@ namespace UGTVForms.Models
                 return true;
             }
 
+            // otherwise the videos already exist in preferences            
             var result = Preferences.Get(PreferencesKey, string.Empty);
             var jsonValue = JsonValue.Parse(result);
             var videosArray = jsonValue as JsonArray;
@@ -43,13 +45,13 @@ namespace UGTVForms.Models
             return true;
         }
 
-        public bool DeleteItem(string id)
+        public virtual bool DeleteItem(string id)
         {
             var result = Preferences.Get(PreferencesKey, string.Empty);
 
             if (string.IsNullOrEmpty(result))
             {
-                // there's no items in favorites to delete
+                // there's no items in favorites or downloads to delete
                 return false;
             }
             else
@@ -65,7 +67,11 @@ namespace UGTVForms.Models
                     return true;
                 }
                 else
-                {
+                {   // if the last video was removed, just delete the empty array
+                    if (videos.Count == 0)
+                    {
+                        Preferences.Remove(PreferencesKey);
+                    }
                     return false;
                 }
             }

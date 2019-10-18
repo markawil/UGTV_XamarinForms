@@ -14,7 +14,7 @@ namespace UGTVForms.Views
         {
             InitializeComponent();
             Preferences.Remove(Settings.Favorites_Key);
-            BuildViewModels();
+            BuildDependencies();
             MessagingCenter.Subscribe<NetworkController>(this, Settings.NetworkCallFailedKey, (sender) =>
             {
                 DisplayAlert(Settings.MESSAGE_CALL_FAILURE, string.Empty, "OK");
@@ -67,7 +67,7 @@ namespace UGTVForms.Views
             Children.Add(downloadsPage);            
         }
         
-        void BuildViewModels()
+        void BuildDependencies()
         {
             _networkController = new NetworkController();
             _videosDataStore = new VideosDataStore();            

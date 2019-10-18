@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using UGTVForms.Models;
 using UGTVForms.Services;
 using UGTVForms.ViewModels;
@@ -19,7 +20,9 @@ namespace UGTVForms.ViewModels
 
         public override void LoadVideos()
         {
-            // Load videos that are saved to disk (if any)
+            videos = downloadsDataStore.All().ToList();
+            var pairs = videos.CreateVideoPairs();
+            VideoPairs = new ObservableCollection<VideoPairModel>(pairs);
         }
     }
 }

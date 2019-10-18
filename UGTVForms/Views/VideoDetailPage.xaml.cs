@@ -37,6 +37,7 @@ namespace UGTVForms.Views
                 bool stop = await DisplayAlert("Warning", warningDownloadingMessage, "Stop Download", "Cancel");
                 if (stop)
                 {
+                    ViewModel.CancelDownload();
                     await Close();
                 }
             }
@@ -44,7 +45,6 @@ namespace UGTVForms.Views
             {
                 await Close();
             }
-            
         }
 
         private async Task Close()

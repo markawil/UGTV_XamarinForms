@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Input;
 using UGTVForms.Models;
 using UGTVForms.Services;
@@ -16,15 +17,12 @@ namespace UGTVForms.ViewModels
         public ICommand FavoriteCommand { get; set; }
         public ICommand DownloadCommand { get; set; }
 
-        // props to the user on SO for showing how to disable toolbar items in Xam.forms:
-        // https://stackoverflow.com/questions/27803038/disable-toolbaritem-xamarin-forms
-
         public string VideoImg { get => video.ImageURLPath; }
         public string VideoURLPath
         {
             get
             {
-                if (video.Downloaded == false)
+                if (video.DownloadedFilePath == null)
                 {
                     return video.VideoUrlPathLow;
                 }
@@ -37,14 +35,13 @@ namespace UGTVForms.ViewModels
 
         public event EventHandler<string> DownloadFailureMessage;
 
-        public
-            VideoDetailPageViewModel(VideoModel video,
+        public VideoDetailPageViewModel(VideoModel video,
                                         IVideoDataStore favoritesDataStore,
                                         IVideoDataStore downloadsDataStore,
                                         IDownloadFileController downloadFileController)
         {
             FavoriteCommand = new Command(FavoriteVideo);
-            DownloadCommand = new Command(DownloadVideo);
+            DownloadCommand = new Command(DownloadOrDeleteVideo);
 
             this.video = video;
             this.favoritesDataStore = favoritesDataStore;
@@ -59,7 +56,7 @@ namespace UGTVForms.ViewModels
                 FavoriteButtonText = "Unfavorite";                
             }
 
-            if (video.Downloaded)
+            if (video.DownloadedFilePath != null)
             {
                 DownloadButtonText = "Remove Download";
             }
@@ -74,7 +71,6 @@ namespace UGTVForms.ViewModels
         {
             DownloadButtonText = "Remove Download";
             video.DownloadedFilePath = e;
-            video.Downloaded = true;
             downloadsDataStore.AddItem(video);
             IsDownloading = false;
         }
@@ -87,11 +83,11 @@ namespace UGTVForms.ViewModels
 
         public string VideoTitle { get => video.VideoTitle; }
 
-        private void DownloadVideo(object obj)
+        private void DownloadOrDeleteVideo(object obj)
         {
-            if (video.Downloaded)
+            if (video.DownloadedFilePath != null)
             {
-                video.Downloaded = false;
+                File.Delete(video.DownloadedFilePath);
                 downloadsDataStore.DeleteItem(video.Id);
                 DownloadButtonText = "Download"; 
             }
@@ -102,6 +98,11 @@ namespace UGTVForms.ViewModels
                 downloadFileController.DownloadVideo(VideoURLPath);
                 DownloadButtonText = "Downloading...";
             }
+        }
+
+        public void CancelDownload()
+        {
+            downloadFileController.CancelCurrentDownload();
         }
 
         public void FavoriteVideo(object obj)
