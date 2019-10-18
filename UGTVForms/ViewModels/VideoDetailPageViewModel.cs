@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Input;
 using UGTVForms.Models;
 using UGTVForms.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace UGTVForms.ViewModels
@@ -64,7 +65,13 @@ namespace UGTVForms.ViewModels
 
         void DownloadFileController_DownloadProgressChanged(object sender, int e)
         {
-            Progress = e / 10;
+            //System.Diagnostics.Debug.WriteLine(e);
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                // Code to run on the main thread
+                double p = e / 100.0;
+                Progress = p;
+            });
         }
 
         void DownloadFileController_DownloadFileCompletedWithPath(object sender, string e)

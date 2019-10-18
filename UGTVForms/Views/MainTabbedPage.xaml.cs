@@ -40,7 +40,7 @@ namespace UGTVForms.Views
                                             _favoritesDataStore,
                                             _downloadsDataStore)
             {
-                Icon = "11-clock",
+                IconImageSource = "11-clock",
                 Title = "Latest"
             };
 
@@ -49,7 +49,7 @@ namespace UGTVForms.Views
                                                _favoritesDataStore,
                                                _downloadsDataStore)
             {
-                Icon = "star_black",
+                IconImageSource = "star_black",
                 Title = "Favorites"
             };
 
@@ -58,7 +58,7 @@ namespace UGTVForms.Views
                                                _favoritesDataStore,
                                                _downloadsDataStore)
             {
-                Icon = "download",
+                IconImageSource = "download",
                 Title = "Downloads"
             };
 

@@ -37,7 +37,7 @@ namespace UGTVForms.Views
         {
             base.OnAppearing();
             
-            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            if (PageType == VideosPageType.LatestVideos && Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
                 DisplayAlert("No Connection Available", "", "OK");
                 return;
