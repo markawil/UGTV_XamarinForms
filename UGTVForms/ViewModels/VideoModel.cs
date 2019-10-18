@@ -16,7 +16,7 @@ namespace UGTVForms.ViewModels
         {
             get { return _jsonValue["Id"].ToString(); }
         }
-        
+
         public VideoModel(JsonValue jsonValue)
         {
             _jsonValue = jsonValue;
@@ -24,7 +24,7 @@ namespace UGTVForms.ViewModels
 
         private bool favorited;
         public bool Favorited
-        { 
+        {
             get => favorited;
             set
             {
@@ -33,20 +33,24 @@ namespace UGTVForms.ViewModels
             }
         }
 
+        static readonly string DownloadFilePath_Key = "DownloadFilePath";
         private string _downloadFilePath;
         public string DownloadedFilePath
         {
             get
             {
-                _downloadFilePath = _jsonValue["DownloadFilePath"];
+                if (_jsonValue.ContainsKey(DownloadFilePath_Key))
+                {
+                    _downloadFilePath = _jsonValue[DownloadFilePath_Key];
+                }
                 return _downloadFilePath;
             }
             set
             {
-                _jsonValue["DownloadFilePath"] = value;
+                _jsonValue[DownloadFilePath_Key] = value;
                 _downloadFilePath = value;
             }
-        }   
+        }
 
         private readonly JsonValue _jsonValue;
         public JsonValue JsonValue
