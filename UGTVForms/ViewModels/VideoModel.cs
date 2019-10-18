@@ -36,7 +36,11 @@ namespace UGTVForms.ViewModels
         private string _downloadFilePath;
         public string DownloadedFilePath
         {
-            get { return _downloadFilePath; }
+            get
+            {
+                _downloadFilePath = _jsonValue["DownloadFilePath"];
+                return _downloadFilePath;
+            }
             set
             {
                 _jsonValue["DownloadFilePath"] = value;
