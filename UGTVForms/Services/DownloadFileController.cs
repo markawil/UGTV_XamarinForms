@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -28,7 +29,7 @@ namespace UGTVForms.Services
                     webClient.DownloadProgressChanged += WebClient_DownloadProgressChanged;
                     webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
                     string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    lastDownloadedFilePath = filePath + getFilename(videoUrl);
+                    lastDownloadedFilePath = Path.Combine(filePath, getFilename(videoUrl));
                     webClient.DownloadFileAsync(uri, lastDownloadedFilePath);
                 }
             }
@@ -68,7 +69,7 @@ namespace UGTVForms.Services
         private string getFilename(string hreflink)
         {
             Uri uri = new Uri(hreflink);
-            string filename = System.IO.Path.GetFileName(uri.LocalPath);
+            string filename = Path.GetFileName(uri.LocalPath);
             return filename;
         }
     }

@@ -14,12 +14,13 @@ namespace UGTVForms.ViewModels
 
         public string Id
         {
-            get { return _jsonValue["Id"].ToString(); }
+            get { return JsonValue["Id"].ToString(); }
         }
 
         public VideoModel(JsonValue jsonValue)
         {
-            _jsonValue = jsonValue;
+            JsonValue = jsonValue;
+            Downloaded = !string.IsNullOrEmpty(DownloadedFilePath);
         }
 
         private bool favorited;
@@ -33,48 +34,70 @@ namespace UGTVForms.ViewModels
             }
         }
 
+        private bool _downloaded;
+        public bool Downloaded
+        {
+            get
+            {
+                return _downloaded;
+            }
+            set
+            {
+                _downloaded = value;
+                OnPropertyChanged(nameof(Downloaded));
+            }
+        }
+
         static readonly string DownloadFilePath_Key = "DownloadFilePath";
         private string _downloadFilePath;
         public string DownloadedFilePath
         {
             get
             {
-                if (_jsonValue.ContainsKey(DownloadFilePath_Key))
+                if (_downloadFilePath != null)
                 {
-                    _downloadFilePath = _jsonValue[DownloadFilePath_Key];
+                    return _downloadFilePath;
+                }
+                else if (JsonValue.ContainsKey(DownloadFilePath_Key))
+                {
+                    _downloadFilePath = JsonValue[DownloadFilePath_Key];
                 }
                 return _downloadFilePath;
             }
             set
             {
-                _jsonValue[DownloadFilePath_Key] = value;
+                if (string.IsNullOrEmpty(value))
+                {
+                    Downloaded = false;
+                }
+                else
+                {
+                    Downloaded = true;
+                }
+                JsonValue[DownloadFilePath_Key] = value;
                 _downloadFilePath = value;
             }
         }
 
-        private readonly JsonValue _jsonValue;
-        public JsonValue JsonValue
-        {
-            get { return _jsonValue; }
-        }
+        public JsonValue JsonValue { get; }
 
         public string VideoTitle
         {
-            get { return _jsonValue["Title"]; }
+            get { return JsonValue["Title"]; }
         }
 
         public string Author
         {
             get
             {
-                var speakers = _jsonValue["Speakers"] as JsonArray;
+                var speakers = JsonValue["Speakers"] as JsonArray;
                 if (speakers != null && speakers.Count > 0)
                 {
                     var name = speakers[0]["Name"];
                     return name;
                 }
 
-                return String.Empty;
+                return string.Empty;
             }
         }
 
@@ -84,7 +107,7 @@ namespace UGTVForms.ViewModels
             {
                 try
                 {
-                    var dateTimeString = _jsonValue["PostDate"].ToString().Trim('"');
+                    var dateTimeString = JsonValue["PostDate"].ToString().Trim('"');
                     DateTime dateTimeValue =
                     DateTime.ParseExact
                             (dateTimeString, "yyyy-MM-ddTHH:mm:ss",
@@ -108,22 +131,22 @@ namespace UGTVForms.ViewModels
 
         public string VideoUrlPathHi
         {
-            get { return _jsonValue["Mp4Video"]; }
+            get { return JsonValue["Mp4Video"]; }
         }
 
         public string VideoUrlPathLow
         {
-            get { return _jsonValue["Mp4VideoLow"]; }
+            get { return JsonValue["Mp4VideoLow"]; }
         }
 
         public string Summary
         {
-            get { return _jsonValue["Exceprt"]; }
+            get { return JsonValue["Exceprt"]; }
         }
 
         public string ImageURLPath
         {
-            get { return _jsonValue["Thumbnail"]; }
+            get { return JsonValue["Thumbnail"]; }
         }
 
         public override int GetHashCode()

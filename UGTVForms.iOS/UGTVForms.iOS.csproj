@@ -56,7 +56,7 @@
     <CodesignKey>iPhone Developer: Mark Wilkinson (P55R45P973)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignProvision>UGTV Dev profile</CodesignProvision>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -66,8 +66,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>Apple Distribution: Mark Wilkinson (PL9G6JVU57)</CodesignKey>
+    <CodesignKey>iPhone Developer: Mark Wilkinson (P55R45P973)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -100,6 +101,8 @@
     <BundleResource Include="Resources\download%403x.png" />
     <BundleResource Include="Resources\ribbon.png" />
     <BundleResource Include="Resources\gold_star.png" />
+    <BundleResource Include="Resources\downloaded_blue%402x.png" />
+    <BundleResource Include="Resources\downloaded_blue%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -123,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\Appicon.imageset\" />
+    <Folder Include="Assets.xcassets\BackgroundColor.colorset\" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -157,5 +161,6 @@
     <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\Icon256.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\Icon256-1.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\Icon128.png" />
+    <ImageAsset Include="Assets.xcassets\BackgroundColor.colorset\Contents.json" />
   </ItemGroup>
 </Project>

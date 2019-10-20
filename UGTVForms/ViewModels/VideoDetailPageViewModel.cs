@@ -23,7 +23,7 @@ namespace UGTVForms.ViewModels
         {
             get
             {
-                if (video.DownloadedFilePath == null)
+                if (string.IsNullOrEmpty(video.DownloadedFilePath))
                 {
                     return video.VideoUrlPathLow;
                 }
@@ -57,7 +57,7 @@ namespace UGTVForms.ViewModels
                 FavoriteButtonText = "Unfavorite";                
             }
 
-            if (video.DownloadedFilePath != null)
+            if (video.Downloaded)
             {
                 DownloadButtonText = "Remove Download";
             }
@@ -92,7 +92,7 @@ namespace UGTVForms.ViewModels
 
         private void DownloadOrDeleteVideo(object obj)
         {
-            if (video.DownloadedFilePath != null)
+            if (video.Downloaded)
             {
                 File.Delete(video.DownloadedFilePath);
                 downloadsDataStore.DeleteItem(video.Id);

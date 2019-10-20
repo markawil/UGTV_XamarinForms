@@ -2,9 +2,10 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="UGTVForms.Views.VideosPage">    
+    x:Class="UGTVForms.Views.VideosPage"
+    >
     <ContentPage.Content>
-        <StackLayout BackgroundColor="White">
+        <StackLayout>
             <StackLayout
                 Orientation="Horizontal">
                 <Image
@@ -44,7 +45,7 @@
                 IsSpellCheckEnabled="false"
                 >
             </SearchBar>
-            <ListView 
+            <ListView
                 ItemsSource="{Binding VideoPairs}"
                 x:Name="listView" 
                 SeparatorVisibility="None"
@@ -96,16 +97,31 @@
                                             Grid.RowSpan="2"
                                             BindingContext="{Binding Video1}"
                                             Clicked="Handle_VideoButtonClicked"/>
-                                        <Image 
-                                            Grid.Row="1"
-                                            BindingContext="{Binding Video1}"
-                                            IsVisible="{Binding Favorited}"
+                                        <StackLayout
+                                            Orientation="Horizontal"
                                             Margin="3"
-                                            Source="gold_star" 
-                                            HeightRequest="20"
-                                            WidthRequest="20"
-                                            HorizontalOptions="EndAndExpand" 
-                                            VerticalOptions="StartAndExpand"/>
+                                            Grid.Row="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            VerticalOptions="StartAndExpand">
+                                            <Image                                            
+                                                BindingContext="{Binding Video1}"
+                                                IsVisible="{Binding Downloaded, Mode=TwoWay}"
+                                                Margin="2"
+                                                Source="downloaded_blue" 
+                                                HeightRequest="20"
+                                                WidthRequest="20"
+                                                HorizontalOptions="Start" 
+                                                VerticalOptions="StartAndExpand"/>
+                                            <Image                                            
+                                                BindingContext="{Binding Video1}"
+                                                IsVisible="{Binding Favorited, Mode=TwoWay}"
+                                                Margin="2"
+                                                Source="gold_star" 
+                                                HeightRequest="20"
+                                                WidthRequest="20"
+                                                HorizontalOptions="End" 
+                                                VerticalOptions="StartAndExpand"/>
+                                        </StackLayout>                                        
                                     </Grid>
                                 </Frame>
                                 <Frame IsVisible="{Binding HasSecondVideo}" Grid.Column="1" CornerRadius="0" Margin="2" HasShadow="true" Padding="0">                                
@@ -139,16 +155,31 @@
                                                 Text="{Binding VideoTitle}"
                                                 TextColor="White"/>
                                         </StackLayout>
-                                        <Image 
-                                            Margin="4"
-                                            BindingContext="{Binding Video2}"
-                                            IsVisible="{Binding Favorited}"
+                                        <StackLayout
+                                            Orientation="Horizontal"
+                                            Margin="3"
                                             Grid.Row="1"
-                                            Source="gold_star" 
-                                            HeightRequest="20"
-                                            WidthRequest="20"
-                                            HorizontalOptions="EndAndExpand" 
-                                            VerticalOptions="StartAndExpand"/>
+                                            HorizontalOptions="EndAndExpand"
+                                            VerticalOptions="StartAndExpand">
+                                            <Image                                            
+                                                BindingContext="{Binding Video2}"
+                                                IsVisible="{Binding Downloaded, Mode=TwoWay}"
+                                                Margin="2"
+                                                Source="downloaded_blue"
+                                                HeightRequest="20"
+                                                WidthRequest="20"
+                                                HorizontalOptions="Start" 
+                                                VerticalOptions="StartAndExpand"/>
+                                            <Image                                            
+                                                BindingContext="{Binding Video2}"
+                                                IsVisible="{Binding Favorited, Mode=TwoWay}"
+                                                Margin="2"
+                                                Source="gold_star" 
+                                                HeightRequest="20"
+                                                WidthRequest="20"
+                                                HorizontalOptions="End" 
+                                                VerticalOptions="StartAndExpand"/>
+                                        </StackLayout>
                                         <Button 
                                             BackgroundColor="Transparent"                                            
                                             Grid.RowSpan="2"

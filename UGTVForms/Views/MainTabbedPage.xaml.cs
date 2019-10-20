@@ -13,7 +13,6 @@ namespace UGTVForms.Views
         public MainTabbedPage()
         {
             InitializeComponent();
-            Preferences.Remove(Settings.Favorites_Key);
             BuildDependencies();
             MessagingCenter.Subscribe<NetworkController>(this, Settings.NetworkCallFailedKey, (sender) =>
             {
@@ -23,7 +22,6 @@ namespace UGTVForms.Views
             LoadPages();
         }
 
-        IVideosDataStore _videosDataStore;
         IVideoDataStore _favoritesDataStore;
         IVideoDataStore _downloadsDataStore;
         
@@ -70,12 +68,11 @@ namespace UGTVForms.Views
         void BuildDependencies()
         {
             _networkController = new NetworkController();
-            _videosDataStore = new VideosDataStore();            
-            _favoritesDataStore = new FavoritesDataStore();            
-            _favVM = new FavoritesViewModel(_favoritesDataStore);
+            _favoritesDataStore = new FavoritesDataStore();
             _downloadsDataStore = new DownloadsDataStore();
-            _dlVM = new DownloadsViewModel(_downloadsDataStore);
-            _latestVM = new LatestVideosViewModel(_networkController, _videosDataStore, _favoritesDataStore);
+            _favVM = new FavoritesViewModel(_favoritesDataStore, _downloadsDataStore);            
+            _dlVM = new DownloadsViewModel(_downloadsDataStore, _favoritesDataStore);
+            _latestVM = new LatestVideosViewModel(_networkController, _favoritesDataStore, _downloadsDataStore);
         }
 
         protected override void OnDisappearing()

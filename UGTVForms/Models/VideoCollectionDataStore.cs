@@ -18,8 +18,6 @@ namespace UGTVForms.Models
 
         public bool AddItem(VideoModel video)
         {
-            // All Downloads are considered favorited as well
-            video.Favorited = true;
             var allVideos = All();
 
             if (allVideos.Contains(video))
@@ -35,7 +33,8 @@ namespace UGTVForms.Models
                 return true;
             }
 
-            // otherwise the videos already exist in preferences            
+            // otherwise a favorites array of videos already exist in preferences,
+            // so just add to it.
             var result = Preferences.Get(PreferencesKey, string.Empty);
             var jsonValue = JsonValue.Parse(result);
             var videosArray = jsonValue as JsonArray;
@@ -71,6 +70,7 @@ namespace UGTVForms.Models
                     if (videos.Count == 0)
                     {
                         Preferences.Remove(PreferencesKey);
+                        return true;
                     }
                     return false;
                 }
@@ -90,9 +90,7 @@ namespace UGTVForms.Models
                 var jsonValue = JsonValue.Parse(result);
                 var videos = jsonValue.VideosFromJson().ToList();
                 var video = videos.FirstOrDefault(v => v.Id == id);
-                if (video != null)
-                    video.Favorited = true;
-
+                
                 return video;
             }
         }
@@ -100,7 +98,7 @@ namespace UGTVForms.Models
         public IEnumerable<VideoModel> All()
         {
             var result = Preferences.Get(PreferencesKey, string.Empty);
-
+            
             if (string.IsNullOrEmpty(result))
             {
                 return new List<VideoModel>();
@@ -108,7 +106,6 @@ namespace UGTVForms.Models
 
             var jsonValue = JsonValue.Parse(result);
             var videos = jsonValue.VideosFromJson().ToList();
-            videos.ForEach(v => v.Favorited = true);
             return videos;
         }
     }

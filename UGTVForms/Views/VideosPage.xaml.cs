@@ -42,30 +42,29 @@ namespace UGTVForms.Views
                 DisplayAlert("No Connection Available", "", "OK");
                 return;
             }
-            
-            // if no videos were previously loaded for this page, load them, 
-            // or if this is the favorites or downloads page (whos collections can be changed
-            // frequently) then reload them every time the page appears.
-            // But prevent loading the videos again every time the page appears
-            // if it's the latest videos page which won't change (unless they refresh)
-            if (ViewModel.VideoPairs.Count == 0 || PageType != VideosPageType.LatestVideos)
-            {
-                Load();
-            }
+
+            Load();
         }
         
         private void Load()
         {
             switch (PageType)
             {
-                case VideosPageType.LatestVideos:                    
-                    Task.Run(async () => await ViewModel.LoadVideosAsync());
+                case VideosPageType.LatestVideos:
+                    // if no videos have been downloaded yet
+                    if (ViewModel.VideoPairs.Count == 0)
+                    {
+                        Task.Run(async () => await ViewModel.LoadVideosAsync());
+                    }
+                    else
+                    {
+                        ViewModel.LoadVideos();
+                    }
                     break;
                 default:
                     ViewModel.LoadVideos();
                     break;
-            }
-            
+            }            
         }
 
         void Handle_SearchClicked(object sender, System.EventArgs e)
@@ -85,7 +84,10 @@ namespace UGTVForms.Views
 
         void Handle_Refreshing(object sender, System.EventArgs e)
         {
-            Load();
+            if (PageType == VideosPageType.LatestVideos)
+            {
+                Task.Run(async () => await ViewModel.LoadVideosAsync());
+            }
         }        
 
         async void Handle_VideoButtonClicked(object sender, System.EventArgs e)

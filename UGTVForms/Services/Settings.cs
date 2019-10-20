@@ -4,11 +4,9 @@ namespace UGTVForms.Services
 {
     public static class Settings
     {
-        public static readonly string UGTVURL_Path = "https://api.mobilepoolbuilder.com/api";
-
         // Preferences Keys
-        public static readonly string Favorites_Key = "FavoritesKey";
-        public static readonly string Downloads_Key = "DownloadsKey";
+        public static readonly string Favorites_Key = "UGTV_FavoritesKey";
+        public static readonly string Downloads_Key = "UGTV_DownloadsKey";
         public static readonly string NetworkCallFailedKey = "NetworkCallFailedKey";
         public static readonly string MESSAGE_CALL_FAILURE = "Something went wrong. Try again later.";
     }
