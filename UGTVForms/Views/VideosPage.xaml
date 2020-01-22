@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="UGTVForms.Views.VideosPage"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
     >
     <ContentPage.Content>
         <StackLayout>
@@ -68,12 +69,15 @@
                                             <RowDefinition Height="60"/> 
                                             <RowDefinition Height="70"/>                                    
                                         </Grid.RowDefinitions>
-                                        <Image        
+                                        <ffimageloading:CachedImage
                                             Grid.RowSpan="2"
-                                            BindingContext="{Binding Video1}" 
                                             Aspect="AspectFill"
-                                            Margin="0,0,0,2"                                           
-                                            Source="{Binding ImageURLPath}"/>                                
+                                            BindingContext="{Binding Video1}"
+                                            DownsampleToViewSize="true"
+                                            DownsampleWidth="150"
+                                            Margin="0,0,0,2"
+                                            Source="{Binding ImageURLPath}">
+                                        </ffimageloading:CachedImage>                                
                                         <StackLayout 
                                             Margin="0,0,0,2"
                                             BackgroundColor="#B3000000"
@@ -130,12 +134,15 @@
                                             <RowDefinition Height="60"/> 
                                             <RowDefinition Height="70"/>                                    
                                         </Grid.RowDefinitions>
-                                        <Image 
+                                        <ffimageloading:CachedImage
                                             Grid.RowSpan="2"
-                                            Aspect="AspectFill"
-                                            Margin="0,0,0,2"
                                             BindingContext="{Binding Video2}"
-                                            Source="{Binding ImageURLPath}"/>                                
+                                            Aspect="AspectFill"
+                                            DownsampleToViewSize="true"
+                                            DownsampleWidth="150"
+                                            Margin="0,0,0,2"
+                                            Source="{Binding ImageURLPath}">
+                                        </ffimageloading:CachedImage>                                
                                         <StackLayout 
                                             BackgroundColor="#B3000000"
                                             BindingContext="{Binding Video2}"
