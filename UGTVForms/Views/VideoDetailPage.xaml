@@ -6,6 +6,7 @@
     ios:Page.ModalPresentationStyle="FullScreen"
     xmlns:roxv="clr-namespace:Rox;assembly=Rox.Xamarin.Video.Portable"
     x:Class="UGTVForms.Views.VideoDetailPage"
+    Visual="Material"
     >
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Close" Clicked="Close_Clicked"/>
@@ -13,9 +14,7 @@
     <ContentPage.Content>
         <StackLayout>            
             <Label 
-                Margin="10"
-                BackgroundColor="White" 
-                TextColor="Black" 
+                Margin="10" 
                 Text="{Binding VideoTitle}"
                 HorizontalOptions="CenterAndExpand"
                 HorizontalTextAlignment="Center" 
@@ -25,7 +24,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button 
+                <Button
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
                     Text="{Binding FavoriteButtonText}" 

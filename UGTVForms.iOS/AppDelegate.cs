@@ -4,6 +4,8 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using StoreKit;
+using Xamarin.Essentials;
 
 namespace UGTVForms.iOS
 {
@@ -22,12 +24,32 @@ namespace UGTVForms.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            global::Xamarin.Forms.Forms.Init();
+            Xamarin.Forms.Forms.Init();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+            Xamarin.Forms.FormsMaterial.Init();
             Rox.VideoIos.Init();
             LoadApplication(new App());
-
+            IncrementAppCount();
             return base.FinishedLaunching(app, options);
+        }
+
+        private void IncrementAppCount()
+        {
+            string key = "ios.app.count";
+
+            var count = Preferences.Get(key, 0);
+            count += 1;
+            Preferences.Set(key, count);
+            switch (count)
+            {
+                case 1:
+                case 3:
+                case 10:
+                    SKStoreReviewController.RequestReview();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

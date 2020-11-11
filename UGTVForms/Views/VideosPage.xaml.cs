@@ -43,9 +43,19 @@ namespace UGTVForms.Views
                 return;
             }
 
+            MessagingCenter.Subscribe<NetworkController>(this, Settings.NetworkCallFailedKey, (sender) =>
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert(Settings.MESSAGE_CALL_FAILURE, string.Empty, "OK");
+                    var vm_ = ViewModel as LatestVideosViewModel;
+                    if (vm_ != null) { vm_.IsBusy = false; }
+                });
+            });
+
             Load();
         }
-        
+
         private void Load()
         {
             switch (PageType)
@@ -74,7 +84,7 @@ namespace UGTVForms.Views
             if (!ViewModel.ShowSearchBar)
             {
                 ViewModel.SearchCanceled();
-            }
+            }   
         }
 
         void Handle_SearchButtonPressed(object sender, System.EventArgs e)

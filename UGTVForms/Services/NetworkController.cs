@@ -5,9 +5,7 @@ using System;
 using System.Json;
 using UGTVForms.ViewModels;
 using System.Linq;
-using UGTVForms.Models;
 using Xamarin.Forms;
-using System.Net;
 
 namespace UGTVForms.Services
 {
@@ -21,6 +19,7 @@ namespace UGTVForms.Services
             {
                 using (var client = new HttpClient())
                 {
+                    client.Timeout = new TimeSpan(0,0,5);
                     var uri = new Uri(ugtvURLPath);
                     var response = await client.GetAsync(uri);
                     if (response.IsSuccessStatusCode)

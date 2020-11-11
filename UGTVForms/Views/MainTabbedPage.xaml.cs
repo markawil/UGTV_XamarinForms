@@ -13,12 +13,7 @@ namespace UGTVForms.Views
         public MainTabbedPage()
         {
             InitializeComponent();
-            BuildDependencies();
-            MessagingCenter.Subscribe<NetworkController>(this, Settings.NetworkCallFailedKey, (sender) =>
-            {
-                DisplayAlert(Settings.MESSAGE_CALL_FAILURE, string.Empty, "OK");
-            });
-            
+            BuildDependencies();            
             LoadPages();
         }
 
@@ -73,12 +68,6 @@ namespace UGTVForms.Views
             _favVM = new FavoritesViewModel(_favoritesDataStore, _downloadsDataStore);            
             _dlVM = new DownloadsViewModel(_downloadsDataStore, _favoritesDataStore);
             _latestVM = new LatestVideosViewModel(_networkController, _favoritesDataStore, _downloadsDataStore);
-        }
-
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-            MessagingCenter.Unsubscribe<NetworkController>(this, Settings.NetworkCallFailedKey);
         }
     }
 }

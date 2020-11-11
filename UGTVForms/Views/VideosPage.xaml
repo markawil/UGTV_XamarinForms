@@ -26,7 +26,7 @@
                     Source="search.png" 
                     Aspect="AspectFit"
                     HorizontalOptions="EndAndExpand"
-                    WidthRequest="30"                                                            
+                    WidthRequest="40"                                                            
                     HeightRequest="30"
                     Clicked="Handle_SearchClicked"
                     >
@@ -52,7 +52,8 @@
                 SeparatorVisibility="None"
                 RowHeight="140"
                 IsPullToRefreshEnabled="{Binding IsRefreshEnabled}"
-                IsRefreshing="{Binding IsBusy}"                 
+                IsRefreshing="{Binding IsBusy}"
+                BackgroundColor="WhiteSmoke"
                 Refreshing="Handle_Refreshing" 
                 >
                 <ListView.ItemTemplate>
