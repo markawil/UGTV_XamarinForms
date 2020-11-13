@@ -110,7 +110,7 @@ namespace UGTVForms.Views
                 {
                     BarBackgroundColor = Color.WhiteSmoke,
                     BarTextColor = Color.Black,
-                    BackgroundColor = Color.WhiteSmoke
+                    BackgroundColor = Color.WhiteSmoke,                    
                 };                
                 await Navigation.PushModalAsync(videoPage);
             }

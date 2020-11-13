@@ -13,15 +13,15 @@
         <ToolbarItem Text="Close" Clicked="Close_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>            
+        <StackLayout>
             <Label 
                 Margin="10" 
                 Text="{Binding VideoTitle}"
-                FontSize="Header"
                 HorizontalOptions="CenterAndExpand"
-                HorizontalTextAlignment="Center" 
-                />
-            <Grid HorizontalOptions="CenterAndExpand">
+                HorizontalTextAlignment="Center"
+                TextColor="DarkSlateGray"
+                FontSize="Subtitle"/>
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>

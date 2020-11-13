@@ -23,8 +23,12 @@ namespace UGTVForms.Views
                                                      downloadsDataStore,
                                                      downloadFileController);
             ViewModel.DownloadFailureMessage += ViewModel_DownloadFailureMessage;
+            if (ViewModel.Speaker != null)
+            {
+                Title = ViewModel.Speaker;
+            }
         }
-    
+
         void ViewModel_DownloadFailureMessage(object sender, string e)
         {
             DisplayAlert("Error", "Download failed: " + e, "OK");

@@ -93,7 +93,7 @@ namespace UGTVForms.ViewModels
                 var speakers = JsonValue["Speakers"] as JsonArray;
                 if (speakers != null && speakers.Count > 0)
                 {
-                    var name = speakers[0]["Name"];
+                    var name = speakers[0]["name"];
                     return name;
                 }
 

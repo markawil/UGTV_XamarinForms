@@ -89,6 +89,7 @@ namespace UGTVForms.ViewModels
         }
 
         public string VideoTitle { get => video.VideoTitle; }
+        public string Speaker { get => video.Author; }
 
         private void DownloadOrDeleteVideo(object obj)
         {
