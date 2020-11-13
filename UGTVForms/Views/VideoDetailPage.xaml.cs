@@ -24,7 +24,7 @@ namespace UGTVForms.Views
                                                      downloadFileController);
             ViewModel.DownloadFailureMessage += ViewModel_DownloadFailureMessage;
         }
-
+    
         void ViewModel_DownloadFailureMessage(object sender, string e)
         {
             DisplayAlert("Error", "Download failed: " + e, "OK");

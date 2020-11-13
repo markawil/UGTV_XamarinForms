@@ -30,6 +30,7 @@ namespace UGTVForms.iOS
             Rox.VideoIos.Init();
             LoadApplication(new App());
             IncrementAppCount();
+            app.StatusBarStyle = UIStatusBarStyle.LightContent;
             return base.FinishedLaunching(app, options);
         }
 

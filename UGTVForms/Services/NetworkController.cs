@@ -11,7 +11,7 @@ namespace UGTVForms.Services
 {
     public class NetworkController : INetworkController
     {
-        private readonly string ugtvURLPath = "http://services.usergroup.tv/api/post";                
+        private readonly string ugtvURLPath = "https://usergroup.tv/api/post.json";                
 
         public async Task<List<VideoModel>> FetchVideosAsync()
         {

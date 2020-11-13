@@ -26,7 +26,7 @@
                     Source="search.png" 
                     Aspect="AspectFit"
                     HorizontalOptions="EndAndExpand"
-                    WidthRequest="40"                                                            
+                    WidthRequest="38"                                                            
                     HeightRequest="30"
                     Clicked="Handle_SearchClicked"
                     >
@@ -41,6 +41,8 @@
             <SearchBar 
                 x:Name="searchbar"
                 Margin="0"
+                BackgroundColor="WhiteSmoke"
+                TextColor="Black"
                 IsVisible="{Binding ShowSearchBar}"
                 SearchButtonPressed="Handle_SearchButtonPressed"
                 IsSpellCheckEnabled="false"

@@ -106,7 +106,12 @@ namespace UGTVForms.Views
             var videoVM = button.BindingContext as VideoModel;
             if (videoVM != null)
             {
-                NavigationPage videoPage = new NavigationPage(new VideoDetailPage(videoVM, favoritesDataStore, downloadsDataStore));                
+                NavigationPage videoPage = new NavigationPage(new VideoDetailPage(videoVM, favoritesDataStore, downloadsDataStore))
+                {
+                    BarBackgroundColor = Color.WhiteSmoke,
+                    BarTextColor = Color.Black,
+                    BackgroundColor = Color.WhiteSmoke
+                };                
                 await Navigation.PushModalAsync(videoPage);
             }
         }
